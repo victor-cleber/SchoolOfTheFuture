@@ -15,8 +15,8 @@
             <summary>
             Register a new user
             </summary>
-            <param name="registerUserViewModelInput"></param>
-            <returns code="201"></returns>
+            <param name="registerUserViewModelInput">View model to represent a user</param>
+            <returns> Return a ok status, user data and a authentication token </returns>
         </member>
     </members>
 </doc>

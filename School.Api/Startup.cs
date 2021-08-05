@@ -1,17 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace School.Api {
     public class Startup {
@@ -25,7 +19,10 @@ namespace School.Api {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            services.AddControllers();
+            services.AddControllers()
+                .ConfigureApiBehaviorOptions(options => {
+                    options.SuppressModelStateInvalidFilter = true;
+                });
 
             services.AddSwaggerGen(c => {
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";

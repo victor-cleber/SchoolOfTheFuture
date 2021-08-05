@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
+using School.Api.Filters;
 using School.Api.Models;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Linq;
 
 namespace School.Api.Controllers {
 
@@ -24,7 +21,11 @@ namespace School.Api.Controllers {
         [SwaggerResponse(statusCode: 500, description: "Internal error", Type= typeof(GenericErrorViewModel))]
         [HttpPost]
         [Route("authenticate")]
+        [ValidateCusomisedModelState]
         public IActionResult AuthenticateUser(LoginViewModelInput loginViewModelInput) {
+            ///if (!ModelState.IsValid) {
+            ///    return BadRequest(new ValidateFieldsViewModelOutput(ModelState.SelectMany(sm => sm.Value.Errors).Select(s => s.ErrorMessage)));
+            ///}
             return Ok(loginViewModelInput);
         }
 
@@ -39,7 +40,11 @@ namespace School.Api.Controllers {
         [HttpPost]
         [HttpPost]
         [Route("register")]
+        [ValidateCusomisedModelState]
         public IActionResult RegisterUser(RegisterUserViewModelInput registerUserViewModelInput) {
+            ///if (!ModelState.IsValid) {
+            ///     return BadRequest(new ValidateFieldsViewModelOutput(ModelState.SelectMany(sm => sm.Value.Errors).Select(s => s.ErrorMessage)));
+            ///}
             return Created("", registerUserViewModelInput);
         }
     }
