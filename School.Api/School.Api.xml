@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>School.Api</name>
+    </assembly>
+    <members>
+        <member name="M:School.Api.Controllers.UserController.AuthenticateUser(School.Api.Models.LoginViewModelInput)">
+            <summary>
+            Authenticate a user
+            </summary>
+            <param name="loginViewModelInput"></param>
+            <returns code="200"></returns>
+        </member>
+        <member name="M:School.Api.Controllers.UserController.RegisterUser(School.Api.Models.RegisterUserViewModelInput)">
+            <summary>
+            Register a new user
+            </summary>
+            <param name="registerUserViewModelInput"></param>
+            <returns code="201"></returns>
+        </member>
+    </members>
+</doc>

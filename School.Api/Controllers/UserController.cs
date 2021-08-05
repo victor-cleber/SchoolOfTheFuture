@@ -13,12 +13,22 @@ namespace School.Api.Controllers {
 
     public class UserController : ControllerBase {
 
+        /// <summary>
+        /// Authenticate a user
+        /// </summary>
+        /// <param name="loginViewModelInput"></param>
+        /// <returns code="200"></returns>
         [HttpPost]
         [Route("authenticate")]
         public IActionResult AuthenticateUser(LoginViewModelInput loginViewModelInput) {
             return Ok(loginViewModelInput);
         }
 
+        /// <summary>
+        /// Register a new user
+        /// </summary>
+        /// <param name="registerUserViewModelInput"></param>
+        /// <returns code="201"></returns>
         [HttpPost]
         [Route("register")]
         public IActionResult RegisterUser(RegisterUserViewModelInput registerUserViewModelInput) {
