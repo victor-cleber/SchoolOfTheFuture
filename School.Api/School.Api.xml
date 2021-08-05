@@ -6,10 +6,10 @@
     <members>
         <member name="M:School.Api.Controllers.UserController.AuthenticateUser(School.Api.Models.LoginViewModelInput)">
             <summary>
-            Authenticate a user
+            This service allwos to authenticate a user already created
             </summary>
-            <param name="loginViewModelInput"></param>
-            <returns code="200"></returns>
+            <param name="loginViewModelInput">View model to represent a login</param>
+            <returns> Return a ok status, user data and a authentication token </returns>
         </member>
         <member name="M:School.Api.Controllers.UserController.RegisterUser(School.Api.Models.RegisterUserViewModelInput)">
             <summary>
