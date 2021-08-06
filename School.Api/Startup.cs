@@ -4,8 +4,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Text;
 using System.IO;
 using System.Reflection;
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace School.Api {
     public class Startup {
@@ -29,6 +33,22 @@ namespace School.Api {
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+            var secret = Encoding.ASCII.GetBytes(Configuration.GetSection("JwtConfigurations:Secret").Value);
+            services.AddAuthentication(x => {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(x => {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(secret),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,7 +60,10 @@ namespace School.Api {
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            
+            //authentication using JWT
+            app.UseAuthentication();
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {
@@ -50,7 +73,7 @@ namespace School.Api {
             app.UseSwagger();
             app.UseSwaggerUI(c => {
                 c.SwaggerEndpoint("swagger/v1/swagger.json", "API School of the Future");
-                c.RoutePrefix = string.Empty;
+                c.RoutePrefix = string.Empty;//swagger
             });
         }
     }
